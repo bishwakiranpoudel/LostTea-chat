@@ -34,7 +34,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 0 1rem;
+  padding: 5px 1rem;
   position: fixed;
   font-size: 18px;
   background-color: #323143;
@@ -165,6 +165,9 @@
 }
 
 #stream__container {
+  background-color: #1d1d1cc7;
+  backdrop-filter: blur( 15px );
+  -webkit-backdrop-filter: blur( 15px );
   justify-self: center;
   width: calc(100% - 40.7rem);
   position: fixed;
@@ -194,6 +197,7 @@
 }
 
 #streams__container{
+  
   display: flex;
   flex-wrap: wrap;
   gap: 2em;
@@ -305,29 +309,32 @@
 }
 
 .stream__actions {
-  position: fixed;
-  bottom: 1rem;
+  position: sticky ;
+  bottom: 6rem;
   border-radius: 8px;
   background-color: #1a1a1a60;
   padding: 1rem;
-  left: 50%;
+  
   display: none;
   gap: 1rem;
-  transform: translateX(-50%);
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  
 }
 
 .stream__actions a,
 .stream__actions button {
   cursor: pointer;
-  background-color: #262625;
-  color: #fff;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  transition: all 0.2s ease-in-out;
+    background-color: #262625;
+    color: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out;
 }
 
 .stream__actions a svg,
@@ -352,7 +359,7 @@
   border: none;
   color: #fff;
   position: fixed;
-  bottom: 1rem;
+  bottom: 6rem;
   border-radius: 8px;
   left: 50%;
   transform: translateX(-50%);

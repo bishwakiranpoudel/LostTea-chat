@@ -1,8 +1,14 @@
+
+
 #form__container {
   width: 90%;
   max-width: 600px;
-  border-radius: 10px;
-  background-color: #262625;
+  background: rgba( 0, 0, 0, 0.25 );
+box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+backdrop-filter: blur( 15px );
+-webkit-backdrop-filter: blur( 15px );
+border-radius: 10px;
+border: 1px solid rgba( 255, 255, 255, 0.18 );
   position: fixed;
   top: 50%;
   left: 50%;
@@ -15,9 +21,14 @@
 
 #form__container__header {
   border-radius: 10px 10px 0 0;
-  padding: 10px;
+  padding: 20px;
   text-align: center;
-  background-color: #363739;
+  background: rgba( 0, 0, 0, 0.25 );
+
+backdrop-filter: blur( 15px );
+-webkit-backdrop-filter: blur( 15px );
+
+
   margin: 0;
   font-size: 18px;
   font-size: 300;
@@ -46,13 +57,18 @@
   border-radius: 5px;
   padding: 16px 20px;
   font-size: 15px;
-  background-color: #3f434a;
+  background: rgba( 0, 0, 0, 0.25 );
+
+  backdrop-filter: blur( 15px );
+  -webkit-backdrop-filter: blur( 15px );
 }
 
 .form__field__wrapper button[type='submit'] {
   margin-top: 32px;
   cursor: pointer;
-  background-color: #845695;
+  background-color: #8456957a;
+  backdrop-filter: blur( 15px );
+  -webkit-backdrop-filter: blur( 15px );
   border: none;
   color: #fff;
   font-size: 16px;

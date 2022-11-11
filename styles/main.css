@@ -2,6 +2,7 @@
 
 * {
   font-family: 'Poppins', sans-serif;
+  
 }
 
 /* width */
@@ -26,14 +27,17 @@
   background: #845695;
 }
 
-body {
-  background-color: #1a1a1a;
+body{
+  
+  background-image: url('/images/background.jpg');
+  background-size: 100%;
+  background-repeat: repeat;
   color: #fff;
-
   font-size: 14px;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  
 }
 
 p,
@@ -63,8 +67,10 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #000000;
-  background-color: #1a1a1a;
+  background: rgba( 0, 0, 0, 0.25 );
+
+  backdrop-filter: blur( 15px );
+  -webkit-backdrop-filter: blur( 15px );
   text-decoration: none;
   padding: 16px 5%;
   z-index: 999;
@@ -124,7 +130,9 @@ a {
 
 #create__room__btn {
   display: block;
-  background-color: #845695;
+  background-color: #8456957a;
+  backdrop-filter: blur( 15px );
+  -webkit-backdrop-filter: blur( 15px );
   padding: 8px 24px;
   font-size: 14px;
   font-weight: 500;
