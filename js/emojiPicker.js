@@ -52,7 +52,7 @@ class EmojiPicker {
     emojiPicker.style.position = "absolute";
     emojiPicker.style.right = "2px";
     emojiPicker.style.outline = "none";
-    emojiPicker.style.top = "20px";
+    emojiPicker.style.top = "-170px";
     emojiPicker.style.zIndex = "999";
     emojiPicker.style.display = "none";
     emojiPicker.style.width = "264px";
@@ -60,11 +60,11 @@ class EmojiPicker {
     emojiPicker.style.marginTop = "5px";
     emojiPicker.style.overflow = "hidden";
     emojiPicker.style.background = "#363739";
-    emojiPicker.style.height = "50px";
+    emojiPicker.style.height = "150px";
     emojiPicker.style.overflowY = "auto";
     emojiPicker.style.boxShadow =
       "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)";
-    emojiPicker.style.borderRadius = "5px;";
+    emojiPicker.style.borderRadius = "5px";
 
     const emojiTrigger = document.createElement("a");
     emojiTrigger.style.position = "absolute";
