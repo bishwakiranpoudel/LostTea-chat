@@ -28,6 +28,8 @@ if(!displayName){
 let localTracks = []
 let remoteUsers = {}
 
+let localAudioLevel;
+
 let localScreenTracks;
 let sharingScreen = false;
 
@@ -77,6 +79,21 @@ let joinStream = async () => {
     localTracks[1].play(`user-${uid}`)
 
     await client.publish([localTracks[0],localTracks[1]])
+    setInterval(listenLocalAudioLevel, 100);
+}
+
+
+let listenLocalAudioLevel = ()=>{
+    
+   localAudioLevel= localTracks[0].getVolumeLevel()
+   
+   if(localAudioLevel>0.18){
+    let pxChange= localAudioLevel*20
+   
+   let container = document.getElementById(`user-container-${uid}`)
+   container.style.boxShadow =  `0px 0px ${pxChange}px ${pxChange/10}px rgba(16, 107, 249, 0.6)`
+   }
+   
 }
 
 let switchToCamera = async () => {
@@ -101,6 +118,7 @@ let handleUserPublished = async (user, mediaType) =>{
     await client.subscribe(user,mediaType)
 
     let player = document.getElementById(`user-container-${user.uid}`)
+    
     if(player=== null){
         player = `<div class="video__container" id="user-container-${user.uid}">
     <div class='video-player' id = 'user-${user.uid}'></div>
@@ -123,9 +141,26 @@ let handleUserPublished = async (user, mediaType) =>{
     if(mediaType === 'audio'){
         user.audioTrack.play(`user-${user.uid}`)
     }
-
+    
+    listenRemoteAudioLevel(user);
+     
 
 }
+
+let listenRemoteAudioLevel =  (user)=>{
+    let id = user.id;
+    setInterval(()=>{
+    let AudioLevel= user.audioTrack.getVolumeLevel()
+    let pxChange= AudioLevel*40
+    
+    let container = document.getElementById(`user-container-${user.uid}`)
+    
+    container.style.boxShadow =  `0px 0px ${pxChange}px ${pxChange/10}px rgba(165,42,202,0.6)`
+    },100)
+    
+    
+    
+ }
 
 let handleUserLeft = async (user)=>{
     delete remoteUsers[user.uid]
