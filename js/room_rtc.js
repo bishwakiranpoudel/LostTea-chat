@@ -34,6 +34,7 @@ let localScreenTracks;
 let sharingScreen = false;
 
 let joinRoomInit = async () =>{
+    localTracks = []
     rtmCLient = await AgoraRTM.createInstance(APP_ID)
     await rtmCLient.login({uid,token})
 
