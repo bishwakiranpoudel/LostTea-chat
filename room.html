@@ -87,7 +87,7 @@
                 </div>
 
                 <form id="message__form">
-                    <input type="text" name="message" placeholder="Send a message...." />
+                    <input type="text" name="message" placeholder="Send a message...." data-emoji-picker="true"/>
                     <div class="file-btn"><input type="file" name="image" id="image"></div>
                 </form>
 
@@ -101,5 +101,11 @@
 <script type="text/javascript" src="js/room.js"></script>
 <script type="text/javascript" src="js/room_rtm.js"></script>
 <script type="text/javascript" src="js/room_rtc.js"></script>
+<script src="js/emojiPicker.js"></script>
+<script>
+  (() => {
+    new EmojiPicker()
+  })()
+</script>
 
 </html>
