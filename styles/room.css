@@ -86,7 +86,7 @@
 
 #messages {
   width: 100%;
-  height: 100%;
+  height: 96%;
   overflow-y: auto;
 }
 
@@ -136,6 +136,11 @@
   margin: 0;
 }
 
+.message__image{
+  width: 100%;
+  height: auto;
+}
+
 #message__form {
   width: 23.2rem;
   position: fixed;
@@ -154,6 +159,8 @@
   font-size: 14px;
   box-sizing: border-box;
   background-color: #3f434a;
+  border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
 }
 
 #message__form input:focus {
@@ -364,4 +371,14 @@
   left: 50%;
   transform: translateX(-50%);
   cursor: pointer;
+}
+input[type="file" i] {
+  border-radius: 0px!important;
+  border-bottom-right-radius: 5px!important;
+    border-bottom-left-radius: 5px!important;
+    color: #fff;
+    padding-top: 0px!important;
+    font-family: calibri;
+    color: #707575!important;
+
 }
