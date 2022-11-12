@@ -102,6 +102,7 @@
 
 .message__body {
   background-color: #363739;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   border-radius: 5px;
   padding: 10px 15px;
   width: fit-content;
