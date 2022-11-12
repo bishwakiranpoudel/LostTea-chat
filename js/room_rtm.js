@@ -1,3 +1,6 @@
+let replyTo={};
+let replying=false;
+
 let handelMemberJoined = async (MemberId) => {
     console.log('A new member has joined the room', MemberId)
     addMemberToDom(MemberId)
@@ -65,49 +68,56 @@ let handelChannelMessage = async (messageData, MemberId) => {
     if(data.type === 'image'){
         addImageToDom(data.displayName,data.image)
     }
+    if(data.type === 'reply'){
+        addReplyToDom(data.displayName,data.message,data.repliedName,data.repliedMessage)
+    }
 
 }
 
 let sendMessage = async (e) => {
     e.preventDefault()
-    if (e.target.image.value) {
-
-        // // let file = e.target.image.value[0]
-
-
-        // // const reader = new FileReader();
-
-        // // reader.readAsDataURL(file);
-        // // console.log(reader.result)
-        // console.log(e.target.image.value)
-        // console.log(e.target.image)
-        // console.log(e.target)
-        console.log(e)
-        let fileInput = document.getElementById('image')
-        console.log(fileInput.files[0])
-        let file = fileInput.files[0]
-        if (file && file['type'].split('/')[0] === 'image') {
-            let reader = new FileReader()
-
-            reader.addEventListener('load',async () => {
-               let finalImage=await resizeImage(reader.result)
-               console.log(finalImage)
-                channel.sendMessage({ text: JSON.stringify({ 'type': 'image', 'image': finalImage, 'displayName': displayName }) })
-                addImageToDom(displayName,finalImage)
-            })
-            reader.readAsDataURL(file)
-            
-        }
-
-
+    console.log(replying)
+    if(replying){
+        let message = e.target.message.value
+        channel.sendMessage({ text: JSON.stringify({ 'type': 'reply', 'message': message, 'displayName': displayName, 'repliedName':replyTo.name, 'repliedMessage':replyTo.message}) })
+        addReplyToDom(displayName, message, replyTo.name, replyTo.message)
+        replyTo= {}
+        document.getElementById('reply__wrapper').innerHTML=null;
+        
+        
     }
     else{
-        let message = e.target.message.value
-    channel.sendMessage({ text: JSON.stringify({ 'type': 'chat', 'message': message, 'displayName': displayName }) })
-    addMessageToDom(displayName, message)
+        if (e.target.image.value) {
+            console.log(e)
+            let fileInput = document.getElementById('image')
+            console.log(fileInput.files[0])
+            let file = fileInput.files[0]
+            if (file && file['type'].split('/')[0] === 'image') {
+                let reader = new FileReader()
     
+                reader.addEventListener('load',async () => {
+                   let finalImage=await resizeImage(reader.result)
+                   console.log(finalImage)
+                    channel.sendMessage({ text: JSON.stringify({ 'type': 'image', 'image': finalImage, 'displayName': displayName }) })
+                    addImageToDom(displayName,finalImage)
+                })
+                reader.readAsDataURL(file)
+                
+                
+            }
+    
+    
+        }
+        else{
+            let message = e.target.message.value
+        channel.sendMessage({ text: JSON.stringify({ 'type': 'chat', 'message': message, 'displayName': displayName }) })
+        addMessageToDom(displayName, message)
+        
+        
+        }
     }
     e.target.reset()
+    replying=false
 }
 
 const resizeImage = (base64Str, maxWidth = 400, maxHeight = 350) => {
@@ -148,6 +158,7 @@ let addMessageToDom = (name, message) => {
         <div class="message__body">
         <strong class="message__author">${name}</strong>
         <p class="message__text">${message}</p>
+        <div class="reply" onclick="setReplying('${name.split(' ')[0]}' , '${message}')" ><img src='./images/reply.png'></div>
         </div>
         </div>`
     messagesWrapper.insertAdjacentHTML('beforeend', newMessage)
@@ -156,6 +167,48 @@ let addMessageToDom = (name, message) => {
     if (lastMessage) { lastMessage.scrollIntoView() }
 
 }
+
+let addReplyToDom = (name, message, replyName, replyMessage) => {
+    let messagesWrapper = document.getElementById('messages')
+
+    let newMessage = `<div class="message__wrapper" style="display:block;  ">
+    <div class="message__body" style ='opacity:0.4; position:relative'><strong class="message__author">${replyName}</strong><p class="message__text">${replyMessage}</p></div>
+        <div class="message__body style="z-index: 9999  "">
+        <strong class="message__author">${name} replied to ${replyName}</strong>
+        <p class="message__text">${message}</p>
+        <div class="reply" onclick="setReplying('${name.split(' ')[0]}' , '${message}')" ><img src='./images/reply.png'></div>
+        
+        </div>
+        </div>`
+    messagesWrapper.insertAdjacentHTML('beforeend', newMessage)
+
+    let lastMessage = document.querySelector('#messages .message__wrapper:last-child')
+    if (lastMessage) { lastMessage.scrollIntoView() }
+
+}
+
+
+let setReplying = (name,message) =>{
+    let replyWrapper = document.getElementById('reply__wrapper')
+
+    let reply = `
+    <div class="message__body" style='
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    margin-left: 5px;
+    padding: 5px 13px;
+'>
+        <strong class="message__author" style='color:Red !important'>Replying to ${name}</strong>
+    </div>
+        
+        
+        `
+    replyWrapper.innerHTML = reply;
+    replyTo={'name':name,'message':message}
+    replying=true
+    console.log(replying)
+}
+
 let addImageToDom = (name, image) => {
     let messagesWrapper = document.getElementById('messages')
 
@@ -164,6 +217,7 @@ let addImageToDom = (name, image) => {
         <strong class="message__author">${name}</strong>
         
         <img src='${image}' class="message__image">
+       
         </div>
         </div>`
     messagesWrapper.insertAdjacentHTML('beforeend', newMessage)
