@@ -249,6 +249,7 @@ let toggleScreen = async (e) => {
         sharingScreen = false  
         cameraButton.style.display ='block'
         document.getElementById(`user-container-${uid}`).remove()
+        await localScreenTracks.stop()
         await client.unpublish([localScreenTracks])
 
         switchToCamera()
