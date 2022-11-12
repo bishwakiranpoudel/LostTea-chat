@@ -34,7 +34,7 @@ let localScreenTracks;
 let sharingScreen = false;
 
 let joinRoomInit = async () =>{
-    localTracks = []
+    
     rtmCLient = await AgoraRTM.createInstance(APP_ID)
     await rtmCLient.login({uid,token})
 
@@ -250,7 +250,7 @@ let toggleScreen = async (e) => {
         sharingScreen = false  
         cameraButton.style.display ='block'
         document.getElementById(`user-container-${uid}`).remove()
-        await localScreenTracks.stop()
+        
         await client.unpublish([localScreenTracks])
 
         switchToCamera()
