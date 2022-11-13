@@ -88,7 +88,7 @@
                 
                 <form id="message__form">
                     <div id="reply__wrapper"></div>
-                    <input type="text" name="message" placeholder="Send a message...." data-emoji-picker="true"/>
+                    <input id="message-input" type="text" name="message" placeholder="Send a message...." data-emoji-picker="true"/>
                     <div class="file-btn"><input type="file" name="image" id="image" accept="image/*" class="custom-file-input" onchange="showPreview(event);"></div>
                     <div class="actual-button"><label for="image">Choose Image</label><img id="file-ip-1-preview"><span id="preview-name"></span></div>
                 </form>
@@ -117,6 +117,7 @@
     var preview = document.getElementById("file-ip-1-preview");
     preview.src = src;
     preview.style.display = "block";
+    document.getElementById('message-input').focus()
   }
 }
 </script>
