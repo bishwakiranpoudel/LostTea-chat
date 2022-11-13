@@ -1,5 +1,5 @@
-let replyTo={};
-let replying=false;
+let replyTo = {};
+let replying = false;
 
 let handelMemberJoined = async (MemberId) => {
     console.log('A new member has joined the room', MemberId)
@@ -65,11 +65,11 @@ let handelChannelMessage = async (messageData, MemberId) => {
     if (data.type === 'user_left') {
         document.getElementById(`user-container-${data.uid}`).remove()
     }
-    if(data.type === 'image'){
-        addImageToDom(data.displayName,data.image)
+    if (data.type === 'image') {
+        addImageToDom(data.displayName, data.image)
     }
-    if(data.type === 'reply'){
-        addReplyToDom(data.displayName,data.message,data.repliedName,data.repliedMessage)
+    if (data.type === 'reply') {
+        addReplyToDom(data.displayName, data.message, data.repliedName, data.repliedMessage)
     }
 
 }
@@ -77,17 +77,18 @@ let handelChannelMessage = async (messageData, MemberId) => {
 let sendMessage = async (e) => {
     e.preventDefault()
     console.log(replying)
-    if(replying){
+    if (replying) {
         let message = e.target.message.value
-        channel.sendMessage({ text: JSON.stringify({ 'type': 'reply', 'message': message, 'displayName': displayName, 'repliedName':replyTo.name, 'repliedMessage':replyTo.message}) })
+        channel.sendMessage({ text: JSON.stringify({ 'type': 'reply', 'message': message, 'displayName': displayName, 'repliedName': replyTo.name, 'repliedMessage': replyTo.message }) })
         addReplyToDom(displayName, message, replyTo.name, replyTo.message)
-        replyTo= {}
-        document.getElementById('reply__wrapper').innerHTML=null;
+        replyTo = {}
+        document.getElementById('reply__wrapper').innerHTML = null;
+        document.getElementById('message__form').style.height = '13%';
 
-        
-        
+
+
     }
-    else{
+    else {
         if (e.target.image.value) {
             console.log(e)
             let fileInput = document.getElementById('image')
@@ -95,69 +96,70 @@ let sendMessage = async (e) => {
             let file = fileInput.files[0]
             if (file && file['type'].split('/')[0] === 'image') {
                 let reader = new FileReader()
-    
-                reader.addEventListener('load',async () => {
-                   let finalImage=await resizeImage(reader.result)
-                   console.log(finalImage)
+
+                reader.addEventListener('load', async () => {
+                    let finalImage = await resizeImage(reader.result)
+                    console.log(finalImage)
                     channel.sendMessage({ text: JSON.stringify({ 'type': 'image', 'image': finalImage, 'displayName': displayName }) })
-                    addImageToDom(displayName,finalImage)
+                    addImageToDom(displayName, finalImage)
                 })
                 reader.readAsDataURL(file)
-                
-                
+
+
             }
-            document.getElementById('preview-name').innerHTML=null
-            
-            var preview = document.getElementById("file-ip-1-preview");
-            preview.src = "";
-    
-    
+
+
+
         }
-        else{
-            
-            if(String(e.target.message.value).trim().length != 0 ){
+        else {
+
+            if (String(e.target.message.value).trim().length != 0) {
                 let message = e.target.message.value
-        channel.sendMessage({ text: JSON.stringify({ 'type': 'chat', 'message': message, 'displayName': displayName }) })
-        addMessageToDom(displayName, message)
+                channel.sendMessage({ text: JSON.stringify({ 'type': 'chat', 'message': message, 'displayName': displayName }) })
+                addMessageToDom(displayName, message)
             }
-        
-        
+
+
         }
     }
+    document.getElementById('preview-name').innerHTML = null
+
+    var preview = document.getElementById("file-ip-1-preview");
+    preview.src = "";
     e.target.reset()
-    replying=false
+    replying = false
 }
 
 const resizeImage = (base64Str, maxWidth = 400, maxHeight = 350) => {
     return new Promise((resolve) => {
-      let img = new Image()
-      img.src = base64Str
-      img.onload = () => {
-        let canvas = document.createElement('canvas')
-        const MAX_WIDTH = maxWidth
-        const MAX_HEIGHT = maxHeight
-        let width = img.width
-        let height = img.height
-  
-        if (width > height) {
-          if (width > MAX_WIDTH) {
-            height *= MAX_WIDTH / width
-            width = MAX_WIDTH
-          }
-        } else {
-          if (height > MAX_HEIGHT) {
-            width *= MAX_HEIGHT / height
-            height = MAX_HEIGHT
-          }
+        let img = new Image()
+        img.src = base64Str
+        img.onload = () => {
+            let canvas = document.createElement('canvas')
+            const MAX_WIDTH = maxWidth
+            const MAX_HEIGHT = maxHeight
+            let width = img.width
+            let height = img.height
+
+            if (width > height) {
+                if (width > MAX_WIDTH) {
+                    height *= MAX_WIDTH / width
+                    width = MAX_WIDTH
+                }
+            } else {
+                if (height > MAX_HEIGHT) {
+                    width *= MAX_HEIGHT / height
+                    height = MAX_HEIGHT
+                }
+            }
+            canvas.width = width
+            canvas.height = height
+            let ctx = canvas.getContext('2d')
+            ctx.drawImage(img, 0, 0, width, height)
+            resolve(canvas.toDataURL("image/webp"))
         }
-        canvas.width = width
-        canvas.height = height
-        let ctx = canvas.getContext('2d')
-        ctx.drawImage(img, 0, 0, width, height)
-        resolve(canvas.toDataURL("image/webp"))
-      }
     })
-  }
+}
 
 let addMessageToDom = (name, message) => {
     let messagesWrapper = document.getElementById('messages')
@@ -196,7 +198,8 @@ let addReplyToDom = (name, message, replyName, replyMessage) => {
 }
 
 
-let setReplying = (name,message) =>{
+let setReplying = (name, message) => {
+    document.getElementById('message__form').style.height = '18.5%';
     let replyWrapper = document.getElementById('reply__wrapper')
 
     let reply = `
@@ -212,8 +215,8 @@ let setReplying = (name,message) =>{
         
         `
     replyWrapper.innerHTML = reply;
-    replyTo={'name':name,'message':message}
-    replying=true
+    replyTo = { 'name': name, 'message': message }
+    replying = true
     console.log(replying)
 }
 

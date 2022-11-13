@@ -436,8 +436,8 @@ input[type="file" i] {
     background-color: #707575!important;
     width: 100%;
     height: 34%;
-    justify-content: center;
-    align-items: center;
+    display: flex;
+    
 }
 
 .actual-button label{
@@ -448,14 +448,14 @@ input[type="file" i] {
   color: white;
   font-weight: 500;
   border-radius: 5px;
-  padding: 6px 8px;
-  outline: none;
-  white-space: nowrap;
-  -webkit-user-select: none;
+  padding: 8px 8px;
+  width: fit-content!important;
+  
   cursor: pointer;
-  position: absolute;
-  top: 56%;
-  left: 7%;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 0px;
+  transform: scale(0.8);
 }
 
 .actual-button span{
@@ -464,15 +464,16 @@ input[type="file" i] {
   color: #3f434a;
   font-weight: bold;
   
-  padding: 5px 5px;
+  padding: 0px 5px;
   outline: none;
   white-space: nowrap;
   -webkit-user-select: none;
   cursor: text;
-  position: absolute;
-  top: 56%;
+  margin-top: auto;
+  margin-bottom: auto;
   
-  font-size: 12px;
+  
+  font-size: 10px;
 }
 
 .actual-button img{
@@ -480,7 +481,7 @@ input[type="file" i] {
   width: auto;
   float: left;
   padding: 3px;
-  margin-left: 35%;
+  
   opacity: 0.7;
   border-radius: 5px;
   
