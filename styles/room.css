@@ -156,6 +156,7 @@
 }
 
 #message__form {
+  height: 13%;
   width: 23.2rem;
   position: fixed;
   bottom: 0;
@@ -290,6 +291,7 @@
   }
 
   #message__form {
+    height: 6.7rem;
     width: 18.2rem;
   }
 }
@@ -387,12 +389,103 @@
   cursor: pointer;
 }
 input[type="file" i] {
+
+
+}
+
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input::before {
+  content: 'Choose Image';
+  display: inline-block;
+  background: #8456957a;
+  backdrop-filter: blur( 15px );
+  -webkit-backdrop-filter: blur( 15px );
+  font-family: calibri;
+  color: white;
+  font-weight: bold;
+  
+  
+  border-radius: 5px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  
+  
+}
+.custom-file-input:hover::before {
+  background: #845695;
+}
+.custom-file-input:active::before {
+  background: #845695;
+}
+.file-btn{
+  display: none;
+}
+
+.actual-button{
   border-radius: 0px!important;
-  border-bottom-right-radius: 5px!important;
+    border-bottom-right-radius: 5px!important;
     border-bottom-left-radius: 5px!important;
     color: #fff;
     padding-top: 0px!important;
     font-family: calibri;
-    color: #707575!important;
+    background-color: #707575!important;
+    width: 100%;
+    height: 34%;
+    justify-content: center;
+    align-items: center;
+}
 
+.actual-button label{
+  background: #845695bd;
+  backdrop-filter: blur( 15px );
+  -webkit-backdrop-filter: blur( 15px );
+  font-family: calibri;
+  color: white;
+  font-weight: 500;
+  border-radius: 5px;
+  padding: 6px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  position: absolute;
+  top: 56%;
+  left: 7%;
+}
+
+.actual-button span{
+  
+  font-family: calibri;
+  color: #3f434a;
+  font-weight: bold;
+  
+  padding: 5px 5px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: text;
+  position: absolute;
+  top: 56%;
+  
+  font-size: 12px;
+}
+
+.actual-button img{
+  height: 80%;
+  width: auto;
+  float: left;
+  padding: 3px;
+  margin-left: 35%;
+  opacity: 0.7;
+  border-radius: 5px;
+  
+}
+
+.actual-button label:hover:focus:active{
+  background: #845695;
 }

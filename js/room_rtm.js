@@ -83,6 +83,7 @@ let sendMessage = async (e) => {
         addReplyToDom(displayName, message, replyTo.name, replyTo.message)
         replyTo= {}
         document.getElementById('reply__wrapper').innerHTML=null;
+
         
         
     }
@@ -105,13 +106,20 @@ let sendMessage = async (e) => {
                 
                 
             }
+            document.getElementById('preview-name').innerHTML=null
+            
+            var preview = document.getElementById("file-ip-1-preview");
+            preview.src = "";
     
     
         }
         else{
-            let message = e.target.message.value
+            
+            if(String(e.target.message.value).trim().length != 0 ){
+                let message = e.target.message.value
         channel.sendMessage({ text: JSON.stringify({ 'type': 'chat', 'message': message, 'displayName': displayName }) })
         addMessageToDom(displayName, message)
+            }
         
         
         }
