@@ -66,7 +66,7 @@ let handelChannelMessage = async (messageData, MemberId) => {
         document.getElementById(`user-container-${data.uid}`).remove()
     }
     if (data.type === 'image') {
-        addImageToDom(data.displayName, data.image)
+        addImageToDom(data.displayName, data.image, data.message)
     }
     if (data.type === 'reply') {
         addReplyToDom(data.displayName, data.message, data.repliedName, data.repliedMessage)
@@ -96,12 +96,12 @@ let sendMessage = async (e) => {
             let file = fileInput.files[0]
             if (file && file['type'].split('/')[0] === 'image') {
                 let reader = new FileReader()
-
+                let message= e.target.message.value
                 reader.addEventListener('load', async () => {
                     let finalImage = await resizeImage(reader.result)
                     console.log(finalImage)
-                    channel.sendMessage({ text: JSON.stringify({ 'type': 'image', 'image': finalImage, 'displayName': displayName }) })
-                    addImageToDom(displayName, finalImage)
+                    channel.sendMessage({ text: JSON.stringify({ 'type': 'image', 'image': finalImage, 'displayName': displayName, 'message': message, }) })
+                    addImageToDom(displayName, finalImage, message)
                 })
                 reader.readAsDataURL(file)
 
@@ -220,13 +220,13 @@ let setReplying = (name, message) => {
     console.log(replying)
 }
 
-let addImageToDom = (name, image) => {
+let addImageToDom = (name, image, message) => {
     let messagesWrapper = document.getElementById('messages')
 
     let newMessage = `<div class="message__wrapper">
         <div class="message__body">
         <strong class="message__author">${name}</strong>
-        
+        <p class="message__text">${message}</p>
         <img src='${image}' class="message__image">
        
         </div>
